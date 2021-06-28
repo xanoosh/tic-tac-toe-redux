@@ -1,0 +1,53 @@
+@import 'reset.scss';
+@import 'variables.scss';
+
+%flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.app {
+  color: $color-font;
+  font-family: $font;
+  overflow-x: hidden;
+  height: 100vh;
+  background: $color-bg;
+  @extend %flex-center;
+}
+p {
+  position: absolute;
+  top: 5vmin;
+  span {
+    font-size: 22px;
+    color: $color-symbol;
+  }
+}
+h2 {
+  position: absolute;
+  bottom: 5vmin;
+  font-size: 35px;
+  span {
+    font-size: 38px;
+    color: $color-symbol;
+  }
+}
+.board {
+  width: 60vmin;
+  height: 60vmin;
+  display: flex;
+  flex-wrap: wrap;
+  .square {
+    width: 20vmin;
+    height: 20vmin;
+    border: $border;
+    background: lighten($color-bg, 10%);
+    cursor: pointer;
+    @extend %flex-center;
+    .symbol {
+      color: $color-symbol;
+      font-size: 12vmin;
+      margin-top: -2vmin;
+    }
+  }
+}
