@@ -1,10 +1,11 @@
 import Board from './Board';
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateGameOn, updateIsPlayerOTurn } from '../actions';
 function App() {
-  const [gameOn, setGameOn] = useState(true);
-  const [winnigMessage, setWinnigMessage] = useState('');
-  const [playerOTurn, setPlayerOTurn] = useState(true);
+  // const [gameOn, setGameOn] = useState(true);
+  // const [isPlayerOTurn, setIsPlayerOTurn] = useState(true);
+  const [winningMessage, setWinningMessage] = useState('');
   const [playerOValues, setPlayerOValues] = useState([]);
   const [playerXValues, setPlayerXValues] = useState([]);
   const [squareData, setSquareData] = useState([
@@ -18,6 +19,10 @@ function App() {
     { value: '', clicked: false },
     { value: '', clicked: false },
   ]);
+  //redux setup
+  const gameOn = useSelector((state) => state.gameOn);
+  const isPlayerOTurn = useSelector((state) => state.isPlayerOTurn);
+  const dispatch = useDispatch();
   useEffect(() => {
     checkWinner();
   }, [playerXValues, playerOValues]);
@@ -29,12 +34,14 @@ function App() {
   }, [gameOn]);
   const checkWinner = () => {
     if (winningConditions(playerOValues)) {
-      setWinnigMessage('Player o won!');
-      setGameOn(!gameOn);
+      setWinningMessage('Player o won!');
+      // setGameOn(!gameOn);
+      dispatch(updateGameOn());
     }
     if (winningConditions(playerXValues)) {
-      setWinnigMessage('Player x won!');
-      setGameOn(!gameOn);
+      setWinningMessage('Player x won!');
+      // setGameOn(!gameOn);
+      dispatch(updateGameOn());
     }
   };
   const winningConditions = (values) => {
@@ -56,7 +63,7 @@ function App() {
     return result;
   };
   const handleClick = (e) => {
-    if (playerOTurn) {
+    if (isPlayerOTurn) {
       setPlayerOValues((prev) => [...prev, e]);
       const newSquareData = [...squareData];
       newSquareData[e].value = 'o';
@@ -69,17 +76,18 @@ function App() {
       newSquareData[e].clicked = true;
       setSquareData(newSquareData);
     }
-    setPlayerOTurn(!playerOTurn);
+    // setIsPlayerOTurn(!isPlayerOTurn);
+    dispatch(updateIsPlayerOTurn());
   };
   return (
     <div className="app">
-      {winnigMessage && (
+      {winningMessage && (
         <h2>
-          <span>{winnigMessage}</span>
+          <span>{winningMessage}</span>
         </h2>
       )}
       <p>
-        Current player: <span>{playerOTurn ? 'o' : 'x'}</span>
+        Current player: <span>{isPlayerOTurn ? 'o' : 'x'}</span>
       </p>
       <Board squareData={squareData} click={handleClick} />
     </div>
