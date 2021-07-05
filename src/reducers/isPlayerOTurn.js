@@ -1,7 +1,8 @@
 const isPlayerOTurn = (state = true, action) => {
   switch (action.type) {
     case 'UPDATEISPLAYEROTURN':
-      return !state;
+      state = !state;
+      return state;
     default:
       return state;
   }

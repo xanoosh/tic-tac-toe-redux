@@ -20,16 +20,19 @@ function App() {
     { value: '', clicked: false },
   ]);
   //redux setup
-  const gameOn = useSelector((state) => state.gameOn);
-  const isPlayerOTurn = useSelector((state) => state.isPlayerOTurn);
+  let gameOn = useSelector((state) => state.game);
+  let isPlayerOTurn = useSelector((state) => state.player);
+  // let isPlayerOTurn = store.getState
+
   const dispatch = useDispatch();
   useEffect(() => {
     checkWinner();
   }, [playerXValues, playerOValues]);
   useEffect(() => {
-    if (!gameOn) {
+    if (gameOn === false) {
       //set Board to unclickable?
       //show reset button?
+      console.log(`game ended`);
     }
   }, [gameOn]);
   const checkWinner = () => {
@@ -77,6 +80,7 @@ function App() {
       setSquareData(newSquareData);
     }
     // setIsPlayerOTurn(!isPlayerOTurn);
+    console.log('update store');
     dispatch(updateIsPlayerOTurn());
   };
   return (
@@ -87,7 +91,8 @@ function App() {
         </h2>
       )}
       <p>
-        Current player: <span>{isPlayerOTurn ? 'o' : 'x'}</span>
+        Current player:{' '}
+        <span>{useSelector((state) => state.isPlayerOTurn) ? 'o' : 'x'}</span>
       </p>
       <Board squareData={squareData} click={handleClick} />
     </div>
