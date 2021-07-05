@@ -1,4 +1,9 @@
 const isPlayerOTurn = (state = true, action) => {
-  if (action.type === 'UPDATEISPLAYEROTURN') return !state;
+  switch (action.type) {
+    case 'UPDATEISPLAYEROTURN':
+      return !state;
+    default:
+      return state;
+  }
 };
 export default isPlayerOTurn;

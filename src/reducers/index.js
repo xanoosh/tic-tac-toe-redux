@@ -3,8 +3,8 @@ import gameOn from './gameOn';
 
 import { combineReducers } from 'redux';
 const combinedReducers = combineReducers({
-  isPlayerOTurn: true,
-  gameOn: true,
+  player: isPlayerOTurn,
+  game: gameOn,
 });
 
 export default combinedReducers;
