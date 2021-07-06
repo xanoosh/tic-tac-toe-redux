@@ -1,6 +1,6 @@
 import Square from './Square';
 
-const Board = ({ squareData, click }) => {
+const Board = ({ squareData, click, isGameOn }) => {
   const squareComponents = squareData.map((square, i) => (
     <Square
       key={i}
@@ -10,7 +10,8 @@ const Board = ({ squareData, click }) => {
       value={square.value}
     />
   ));
-  return <div className="board">{squareComponents}</div>;
+  const Board = isGameOn ? <div className="board">{squareComponents}</div> : '';
+  return Board;
 };
 
 export default Board;

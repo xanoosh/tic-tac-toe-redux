@@ -91,10 +91,10 @@ function App() {
         </h2>
       )}
       <p>
-        Current player:{' '}
-        <span>{useSelector((state) => state.isPlayerOTurn) ? 'o' : 'x'}</span>
+        Current player:
+        <span>{isPlayerOTurn ? 'o' : 'x'}</span>
       </p>
-      <Board squareData={squareData} click={handleClick} />
+      <Board isGameOn={gameOn} squareData={squareData} click={handleClick} />
     </div>
   );
 }
