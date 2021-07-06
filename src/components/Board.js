@@ -10,8 +10,8 @@ const Board = ({ squareData, click, isGameOn }) => {
       value={square.value}
     />
   ));
-  const Board = isGameOn ? <div className="board">{squareComponents}</div> : '';
-  return Board;
+  const classes = isGameOn ? 'board' : 'board finished';
+  return <div className={classes}>{squareComponents}</div>;
 };
 
 export default Board;
