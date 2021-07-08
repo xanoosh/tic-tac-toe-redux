@@ -1,4 +1,6 @@
 import Board from './Board';
+import WhoseTurn from './WhoseTurn';
+import ResetBtn from './ResetBtn';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateGameOn, updateIsPlayerOTurn } from '../actions';
@@ -83,18 +85,36 @@ function App() {
     console.log('update store');
     dispatch(updateIsPlayerOTurn());
   };
+
+  const handleClickReset = () => {
+    setWinningMessage('');
+    setPlayerOValues([]);
+    setPlayerXValues([]);
+    resetSquareData();
+    if (!isPlayerOTurn) dispatch(updateIsPlayerOTurn());
+    dispatch(updateGameOn());
+  };
+  const resetSquareData = () => {
+    const squareDataArray = squareData;
+    squareDataArray.forEach((square) => {
+      square.value = '';
+      square.clicked = false;
+    });
+    setSquareData(squareDataArray);
+  };
   return (
     <div className="app">
+      {gameOn ? (
+        <WhoseTurn turn={isPlayerOTurn} />
+      ) : (
+        <ResetBtn click={handleClickReset} />
+      )}
+      <Board isGameOn={gameOn} squareData={squareData} click={handleClick} />
       {winningMessage && (
         <h2>
           <span>{winningMessage}</span>
         </h2>
       )}
-      <p>
-        Current player:
-        <span>{isPlayerOTurn ? 'o' : 'x'}</span>
-      </p>
-      <Board isGameOn={gameOn} squareData={squareData} click={handleClick} />
     </div>
   );
 }
