@@ -104,17 +104,15 @@ function App() {
   };
   return (
     <div className="app">
-      {gameOn ? (
-        <WhoseTurn turn={isPlayerOTurn} />
-      ) : (
-        <ResetBtn click={handleClickReset} />
-      )}
-      <Board isGameOn={gameOn} squareData={squareData} click={handleClick} />
-      {winningMessage && (
+      {gameOn && <WhoseTurn turn={isPlayerOTurn} />}
+      {!gameOn && winningMessage && (
         <h2>
           <span>{winningMessage}</span>
         </h2>
       )}
+      <Board isGameOn={gameOn} squareData={squareData} click={handleClick} />
+
+      {!gameOn && <ResetBtn click={handleClickReset} />}
     </div>
   );
 }

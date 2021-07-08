@@ -13,6 +13,7 @@
   overflow-x: hidden;
   height: 100vh;
   background: $color-bg;
+  text-align: center;
   @extend %flex-center;
 }
 p {
@@ -25,8 +26,8 @@ p {
 }
 h2 {
   position: absolute;
-  bottom: 5vmin;
-  font-size: 35px;
+  top: 5vmin;
+  font-size: 30px;
   span {
     font-size: 38px;
     color: $color-symbol;
@@ -55,4 +56,17 @@ h2 {
     pointer-events: none;
     opacity: 0.7;
   }
+}
+
+//reset
+
+.btn-reset {
+  position: absolute;
+  bottom: 5vmin;
+  font-size: 20px;
+  color: $color-bg;
+  border: 1px solid $color-bg;
+  background: $color-symbol;
+  padding: 7px 16px;
+  cursor: pointer;
 }
