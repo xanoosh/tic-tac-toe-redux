@@ -40,14 +40,28 @@ function App() {
   const checkWinner = () => {
     if (winningConditions(playerOValues)) {
       setWinningMessage('Player o won!');
-      // setGameOn(!gameOn);
       dispatch(updateGameOn());
+      return;
     }
     if (winningConditions(playerXValues)) {
       setWinningMessage('Player x won!');
-      // setGameOn(!gameOn);
       dispatch(updateGameOn());
+      return;
     }
+    if (allChecked()) {
+      setWinningMessage('Draw');
+      dispatch(updateGameOn());
+      return;
+    }
+  };
+  const allChecked = () => {
+    const squaresArray = squareData;
+    let clickedCount = 0;
+    for (const square of squaresArray) {
+      if (square.clicked) clickedCount++;
+    }
+    if (clickedCount === squaresArray.length) return true;
+    return false;
   };
   const winningConditions = (values) => {
     if (containsArray(values, [0, 1, 2])) return true;
